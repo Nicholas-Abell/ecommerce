@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 
 import { useStoreModal } from "@/hooks/useStoreModal";
-import ModalProvider from "@/components/modal/ModalProvider";
+import ModalProvider from "@/components/providers/ModalProvider";
 
 export default function Home() {
   const onOpen = useStoreModal((state) => state.onOpen);
