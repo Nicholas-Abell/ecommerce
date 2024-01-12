@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -16,11 +17,14 @@ import { useStoreModal } from "@/hooks/useStoreModal";
 import { StoreSchema } from "@/lib/validations/Store";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import axios from "axios";
 
 type StoreModalProps = {};
 
 const StoreModal: React.FC<StoreModalProps> = () => {
   const StoreModal = useStoreModal();
+
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof StoreSchema>>({
     resolver: zodResolver(StoreSchema),
@@ -31,7 +35,15 @@ const StoreModal: React.FC<StoreModalProps> = () => {
 
   const onSubmit = async (values: z.infer<typeof StoreSchema>) => {
     //create store
-    console.log(values);
+    try {
+      setLoading(true);
+      const response = await axios.post("/api/stores", values);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,14 +64,22 @@ const StoreModal: React.FC<StoreModalProps> = () => {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="E-Commerce" {...field} />
+                      <Input
+                        disabled={loading}
+                        placeholder="E-Commerce"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-                <Button variant="outline" onClick={StoreModal.onClose}>
+                <Button
+                  disabled={loading}
+                  variant="outline"
+                  onClick={StoreModal.onClose}
+                >
                   Cancel
                 </Button>
                 <Button type="submit">Continue</Button>
