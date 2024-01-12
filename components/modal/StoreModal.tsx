@@ -13,7 +13,7 @@ import * as z from "zod";
 
 import Modal from "./Modal";
 import { useStoreModal } from "@/hooks/useStoreModal";
-import { StoreValidation } from "@/lib/validations/Store";
+import { StoreSchema } from "@/lib/validations/Store";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
@@ -22,14 +22,14 @@ type StoreModalProps = {};
 const StoreModal: React.FC<StoreModalProps> = () => {
   const StoreModal = useStoreModal();
 
-  const form = useForm<z.infer<typeof StoreValidation>>({
-    resolver: zodResolver(StoreValidation),
+  const form = useForm<z.infer<typeof StoreSchema>>({
+    resolver: zodResolver(StoreSchema),
     defaultValues: {
       name: "",
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof StoreValidation>) => {
+  const onSubmit = async (values: z.infer<typeof StoreSchema>) => {
     //create store
     console.log(values);
   };
