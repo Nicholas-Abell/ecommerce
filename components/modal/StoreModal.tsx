@@ -18,6 +18,7 @@ import { StoreSchema } from "@/lib/validations/Store";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 type StoreModalProps = {};
 
@@ -38,9 +39,9 @@ const StoreModal: React.FC<StoreModalProps> = () => {
     try {
       setLoading(true);
       const response = await axios.post("/api/stores", values);
-      console.log(response.data);
+      toast.success("store created");
     } catch (error) {
-      console.log(error);
+      toast.error("something went wrong");
     } finally {
       setLoading(false);
     }
