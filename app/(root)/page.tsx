@@ -14,10 +14,5 @@ export default function Home() {
     }
   }, [isOpen, onOpen]);
 
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <ModalProvider />
-      <p>jkhlkjhkjhkjhkjh</p>
-    </main>
-  );
+  return null
 }
