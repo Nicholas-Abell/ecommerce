@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
+import { ClerkProvider, auth } from "@clerk/nextjs";
 
-import "./globals.css";
-import prisma from "@/lib/prisma/prisma";
+import "../globals.css";
+import ModalProvider from "@/components/providers/ModalProvider";
+import { ToastProvider } from "@/components/providers/ToastProvider";
+import { redirect } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,6 @@ export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-  params: { storeId: string };
 }) {
   const { userId } = auth();
 
@@ -32,10 +32,13 @@ export default async function RootLayout({
   if (store) {
     redirect(`/${store.id}`);
   }
-
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <ToastProvider />
+        <ModalProvider />
+        <body className={inter.className}>{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }
