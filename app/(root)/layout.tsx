@@ -6,6 +6,7 @@ import "../globals.css";
 import ModalProvider from "@/components/providers/ModalProvider";
 import { ToastProvider } from "@/components/providers/ToastProvider";
 import { redirect } from "next/navigation";
+import prisma from "@/lib/prisma/prisma";
 
 const inter = Inter({ subsets: ["latin"] });
 
