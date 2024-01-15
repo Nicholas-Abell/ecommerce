@@ -19,6 +19,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { redirect } from "next/dist/server/api-utils";
 
 type StoreModalProps = {};
 
@@ -38,8 +39,11 @@ const StoreModal: React.FC<StoreModalProps> = () => {
     //create store
     try {
       setLoading(true);
+
       const response = await axios.post("/api/stores", values);
-      toast.success("store created");
+
+      //refresh browser
+      window.location.assign(`/${response.data.id}`);
     } catch (error) {
       toast.error("something went wrong");
     } finally {
