@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { auth } from "@clerk/nextjs";
+import { ClerkProvider, auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 import prisma from "@/lib/prisma/prisma";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navigation/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 

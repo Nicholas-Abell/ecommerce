@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
@@ -22,7 +23,10 @@ const DesktopNav: React.FC<DesktopNavProps> = () => {
       {routes.map((route, index) => (
         <Link
           className={cn(
-            "text-sm font-medium transition-colors hover:text-primary", route.active ? "text-black dark:text-white" : "text-muted-foreground"
+            "text-sm font-medium transition-colors hover:text-primary",
+            route.active
+              ? "text-black dark:text-white"
+              : "text-muted-foreground"
           )}
           key={index}
           href={route.href}
