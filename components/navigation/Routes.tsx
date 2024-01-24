@@ -4,9 +4,9 @@ import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-type DesktopNavProps = {};
+type RoutesProps = {};
 
-const DesktopNav: React.FC<DesktopNavProps> = () => {
+const Routes: React.FC<RoutesProps> = () => {
   const pathname = usePathname();
   const params = useParams();
 
@@ -37,4 +37,4 @@ const DesktopNav: React.FC<DesktopNavProps> = () => {
     </div>
   );
 };
-export default DesktopNav;
+export default Routes;
