@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 import prisma from "@/lib/prisma/prisma";
+import SettingsForm from "@/components/forms/SettingsForm";
 
 type pageProps = {
   params: {
@@ -25,6 +26,12 @@ const page: React.FC<pageProps> = async ({ params }) => {
     redirect("/");
   }
 
-  return <div>Settings</div>;
+  return (
+    <div className="flex-col">
+      <div className="flex-1 space-y-4 p-8 pt-4">
+        <SettingsForm />
+      </div>
+    </div>
+  );
 };
 export default page;
