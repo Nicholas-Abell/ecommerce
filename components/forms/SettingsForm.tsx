@@ -1,11 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
+import axios from "axios";
 import { Store } from "@prisma/client";
 import { Trash } from "lucide-react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
+import { useParams, useRouter } from "next/navigation";
 
 import Heading from "../ui/heading";
 import { Button } from "../ui/button";
@@ -31,6 +34,9 @@ const formSchema = z.object({
 type SettingsFormValues = z.infer<typeof formSchema>;
 
 const SettingsForm: React.FC<SettingsFormProps> = ({ storeData }) => {
+  const params = useParams();
+  const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -40,7 +46,16 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ storeData }) => {
   });
 
   const onSubmit = async (data: SettingsFormValues) => {
-    console.log(data);
+    try {
+      setLoading(true);
+      await axios.patch(`/api/stores/${params.storeId}`, data);
+      router.refresh();
+      toast.success("Store Updated");
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -76,7 +91,12 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ storeData }) => {
               )}
             />
           </div>
-          <Button disabled={loading} className="ml-auto" type="submit">
+          <Button
+            disabled={loading}
+            onClick={() => setOpen(true)}
+            className="ml-auto"
+            type="submit"
+          >
             Save Changes
           </Button>
         </form>
