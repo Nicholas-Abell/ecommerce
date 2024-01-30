@@ -59,14 +59,26 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ storeData }) => {
     }
   };
 
+  const onDelete = async () => {
+    try {
+      setLoading(true);
+      await axios.delete(`/api/stores/${params.storeId}`);
+      router.refresh();
+      router.push("/");
+      toast.success("Store Deleted");
+    } catch (error) {
+      toast.error("Make sure you removed all products and catagories first.");
+    } finally {
+      setLoading(false), setOpen(false);
+    }
+  };
+
   return (
     <>
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={() => {
-          console.log("");
-        }}
+        onConfirm={onDelete}
         loading={loading}
       />
       <div className="flex items-center justify-between">
@@ -106,11 +118,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ storeData }) => {
               )}
             />
           </div>
-          <Button
-            disabled={loading}
-            className="ml-auto"
-            type="submit"
-          >
+          <Button disabled={loading} className="ml-auto" type="submit">
             Save Changes
           </Button>
         </form>
