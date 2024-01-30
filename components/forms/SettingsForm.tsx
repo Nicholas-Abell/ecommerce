@@ -22,6 +22,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import AlertModal from "../modal/AlertModal";
 
 type SettingsFormProps = {
   storeData: Store;
@@ -60,9 +61,23 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ storeData }) => {
 
   return (
     <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={() => {
+          console.log("");
+        }}
+        loading={loading}
+      />
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage Store Preferences" />
-        <Button variant="destructive" onClick={() => {}} size="icon">
+        <Button
+          variant="destructive"
+          onClick={() => {
+            setOpen(true);
+          }}
+          size="icon"
+        >
           <Trash className="h-4 w-4" />
         </Button>
       </div>
@@ -93,7 +108,6 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ storeData }) => {
           </div>
           <Button
             disabled={loading}
-            onClick={() => setOpen(true)}
             className="ml-auto"
             type="submit"
           >
