@@ -23,6 +23,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import AlertModal from "../modal/AlertModal";
+import { ApiAlert } from "../ui/api-alert";
 
 type SettingsFormProps = {
   storeData: Store;
@@ -123,6 +124,12 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ storeData }) => {
           </Button>
         </form>
       </Form>
+      <Separator />
+      <ApiAlert
+        title="NEXT_PUBLIC_API_URL"
+        description="test-desc"
+        variant="public"
+      />
     </>
   );
 };
