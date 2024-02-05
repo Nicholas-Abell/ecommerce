@@ -25,6 +25,7 @@ import { Input } from "@/components/ui/input";
 import AlertModal from "@/components/modal/AlertModal";
 import { ApiAlert } from "@/components/ui/api-alert";
 import { useOrigin } from "@/hooks/useOrigin";
+import ImageUpload from "@/components/ui/image-upload";
 
 type BillboardFormProps = {
   billboardData: Billboard | null;
@@ -62,7 +63,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ billboardData }) => {
   const onSubmit = async (data: BillboardFormValues) => {
     try {
       setLoading(true);
-    //   await axios.patch(`/api/stores/${params.storeId}`, data);
+      //   await axios.patch(`/api/stores/${params.storeId}`, data);
       router.refresh();
       toast.success("Store Updated");
     } catch (error) {
@@ -75,7 +76,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ billboardData }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-    //   await axios.delete(`/api/stores/${params.storeId}`);
+      //   await axios.delete(`/api/stores/${params.storeId}`);
       router.refresh();
       router.push("/");
       toast.success("Store Deleted");
@@ -114,6 +115,24 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ billboardData }) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className=" space-y-8 w-full"
         >
+          <FormField
+            control={form.control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Background image</FormLabel>
+                <FormControl>
+                  <ImageUpload
+                    value={field.value ? [field.value] : []}
+                    disabled={loading}
+                    onChange={(url) => field.onChange(url)}
+                    onRemove={() => field.onChange("")}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
