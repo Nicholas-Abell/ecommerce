@@ -24,7 +24,6 @@ import {
 import { Input } from "@/components/ui/input";
 import AlertModal from "@/components/modal/AlertModal";
 import { ApiAlert } from "@/components/ui/api-alert";
-import { useOrigin } from "@/hooks/useOrigin";
 import ImageUpload from "@/components/ui/image-upload";
 
 type BillboardFormProps = {
@@ -41,7 +40,6 @@ type BillboardFormValues = z.infer<typeof formSchema>;
 const BillboardForm: React.FC<BillboardFormProps> = ({ billboardData }) => {
   const params = useParams();
   const router = useRouter();
-  const origin = useOrigin();
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -171,7 +169,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ billboardData }) => {
       <Separator />
       <ApiAlert
         title="NEXT_PUBLIC_API_URL"
-        description={`${origin}/api/${params.storeId}`}
+        description={`/api/${params.storeId}`}
         variant="public"
       />
     </>
