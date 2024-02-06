@@ -65,29 +65,3 @@ export async function GET(
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
-
-export async function DELETE(
-  _req: Request,
-  { params }: { params: { storeId: string } }
-) {
-  try {
-    const { userId } = auth();
-
-    if (!userId) {
-      return new NextResponse("Unauthenitcated", { status: 401 });
-    }
-
-    if (!params.storeId) {
-      return new NextResponse("Store id is required", { status: 400 });
-    }
-
-    const store = await prisma.store.deleteMany({
-      where: { id: params.storeId, userId },
-    });
-
-    return NextResponse.json(store);
-  } catch (error) {
-    console.log("[BILLBOARDS_DELETE]", error);
-    return new NextResponse("Internal Error", { status: 500 });
-  }
-}
