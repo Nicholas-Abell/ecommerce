@@ -7,10 +7,13 @@ import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
+import { Billboard } from "@prisma/client";
 
-type ClientProps = {};
+type ClientProps = {
+  data: Billboard[];
+};
 
-const Client: React.FC<ClientProps> = () => {
+const Client: React.FC<ClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
 
