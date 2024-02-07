@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 import prisma from "@/lib/prisma/prisma";
-import SettingsForm from "@/components/forms/SettingsForm";
+import SettingsForm from "@/app/(dashboard)/[storeId]/settings/_components/SettingsForm";
 
 type pageProps = {
   params: {

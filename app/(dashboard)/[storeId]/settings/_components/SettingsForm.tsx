@@ -10,9 +10,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 
-import Heading from "../ui/heading";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
+import Heading from "../../../../../components/ui/heading";
+import { Button } from "../../../../../components/ui/button";
+import { Separator } from "../../../../../components/ui/separator";
 import {
   Form,
   FormControl,
@@ -20,10 +20,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
-import AlertModal from "../modal/AlertModal";
-import { ApiAlert } from "../ui/api-alert";
+} from "../../../../../components/ui/form";
+import { Input } from "../../../../../components/ui/input";
+import AlertModal from "../../../../../components/modal/AlertModal";
+import { ApiAlert } from "../../../../../components/ui/api-alert";
+import { useOrigin } from "@/hooks/useOrigin";
 
 type SettingsFormProps = {
   storeData: Store;
@@ -38,6 +39,7 @@ type SettingsFormValues = z.infer<typeof formSchema>;
 const SettingsForm: React.FC<SettingsFormProps> = ({ storeData }) => {
   const params = useParams();
   const router = useRouter();
+  const origin = useOrigin();
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -127,7 +129,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ storeData }) => {
       <Separator />
       <ApiAlert
         title="NEXT_PUBLIC_API_URL"
-        description="test-desc"
+        description={`${origin}/api/${params.storeId}`}
         variant="public"
       />
     </>
