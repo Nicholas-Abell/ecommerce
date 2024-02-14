@@ -1,11 +1,14 @@
 "use client";
 
 import { Button } from "./button";
+import { Input } from "@/components/ui/input";
 
 import {
   ColumnDef,
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
