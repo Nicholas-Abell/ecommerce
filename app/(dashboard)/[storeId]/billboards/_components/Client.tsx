@@ -7,10 +7,11 @@ import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
-import { Billboard } from "@prisma/client";
+import { BillboardColumn, columns } from "./Columns";
+import { DataTable } from "@/components/ui/data-table";
 
 type ClientProps = {
-  data: Billboard[];
+  data: BillboardColumn[];
 };
 
 const Client: React.FC<ClientProps> = ({ data }) => {
@@ -21,7 +22,7 @@ const Client: React.FC<ClientProps> = ({ data }) => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title="Billboards (0)"
+          title={`Billboards (${data.length})`}
           description="Manage billboards for your store"
         />
         <Button
@@ -32,6 +33,7 @@ const Client: React.FC<ClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
+      <DataTable columns={columns} data={data} />
     </>
   );
 };
