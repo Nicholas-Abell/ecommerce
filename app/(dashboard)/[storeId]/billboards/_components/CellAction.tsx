@@ -36,11 +36,8 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(
-        `/api/${params.storeId}/billboards/${params.billboardId}`
-      );
+      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
       router.refresh();
-      router.push(`/${params.storeId}/billboards`);
       toast.success("Billboard deleted.");
     } catch (error: any) {
       toast.error(
@@ -54,7 +51,12 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   return (
     <>
-      <AlertModal />
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={onDelete}
+        loading={loading}
+      />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
@@ -74,7 +76,7 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
           >
             <Edit className="mr-2 h-4 w-4" /> Update
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setOpen(true)}>
             <Edit className="mr-2 h-4 w-4" /> Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
