@@ -1,25 +1,21 @@
 import prisma from "@/lib/prisma/prisma";
 
-import { BillboardForm } from "./_components/BillboardForm";
+import { CatagoryForm } from "./_components/CatagoryForm";
 
-const BillboardPage = async ({
-  params
-}: {
-  params: { billboardId: string }
-}) => {
-  const billboard = await prisma.billboard.findUnique({
+const CatagoryPage = async ({ params }: { params: { catagoryId: string } }) => {
+  const catagory = await prisma.catagory.findUnique({
     where: {
-      id: params.billboardId
-    }
+      id: params.catagoryId,
+    },
   });
 
-  return ( 
+  return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillboardForm initialData={billboard} />
+        <CatagoryForm initialData={catagory} />
       </div>
     </div>
   );
-}
+};
 
-export default BillboardPage;
+export default CatagoryPage;
