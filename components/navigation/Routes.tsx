@@ -22,6 +22,11 @@ const Routes: React.FC<RoutesProps> = () => {
       active: pathname === `/${params.storeId}/billboards`,
     },
     {
+      href: `/${params.storeId}/catagories`,
+      label: "Catagories",
+      active: pathname === `/${params.storeId}/catagories`,
+    },
+    {
       href: `/${params.storeId}/settings`,
       label: "Settings",
       active: pathname === `/${params.storeId}/settings`,
