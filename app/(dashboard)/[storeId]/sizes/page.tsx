@@ -9,24 +9,24 @@ type BillboardsPageProps = {
   params: { storeId: string };
 };
 
-const BillboardsPage: React.FC<BillboardsPageProps> = async ({ params }) => {
-  const billboards = await prisma.billboard.findMany({
+const SizesPage: React.FC<BillboardsPageProps> = async ({ params }) => {
+  const sizes = await prisma.size.findMany({
     where: { storeId: params.storeId },
     orderBy: { createdAt: "desc" },
   });
 
-  const formattedBillboards: BillboardColumn[] = billboards.map((item) => ({
+  const formattedSizes: BillboardColumn[] = sizes.map((item) => ({
     id: item.id,
-    label: item.label,
+    label: item.name,
     createdAt: format(item.createdAt, "MMMM do, yyyy"),
   }));
 
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 py-6">
-        <Client data={formattedBillboards} />
+        <Client data={formattedSizes} />
       </div>
     </div>
   );
 };
-export default BillboardsPage;
+export default SizesPage;
