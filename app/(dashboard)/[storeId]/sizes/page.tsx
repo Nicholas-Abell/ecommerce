@@ -18,6 +18,7 @@ const SizesPage: React.FC<BillboardsPageProps> = async ({ params }) => {
   const formattedSizes: BillboardColumn[] = sizes.map((item) => ({
     id: item.id,
     label: item.name,
+    value: item.value,
     createdAt: format(item.createdAt, "MMMM do, yyyy"),
   }));
 
