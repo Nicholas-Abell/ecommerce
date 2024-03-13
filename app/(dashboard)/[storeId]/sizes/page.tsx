@@ -3,21 +3,21 @@ import { format } from "date-fns";
 
 import Client from "./_components/Client";
 import prisma from "@/lib/prisma/prisma";
-import { BillboardColumn } from "./_components/Columns";
+import { SizesColumn } from "./_components/Columns";
 
-type BillboardsPageProps = {
+type SizesPageProps = {
   params: { storeId: string };
 };
 
-const SizesPage: React.FC<BillboardsPageProps> = async ({ params }) => {
+const SizesPage: React.FC<SizesPageProps> = async ({ params }) => {
   const sizes = await prisma.size.findMany({
     where: { storeId: params.storeId },
     orderBy: { createdAt: "desc" },
   });
 
-  const formattedSizes: BillboardColumn[] = sizes.map((item) => ({
+  const formattedSizes: SizesColumn[] = sizes.map((item) => ({
     id: item.id,
-    label: item.name,
+    name: item.name,
     value: item.value,
     createdAt: format(item.createdAt, "MMMM do, yyyy"),
   }));
